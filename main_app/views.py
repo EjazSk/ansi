@@ -12,7 +12,9 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy, reverse
 from django.contrib.messages import warning
 from formtools.wizard.views import SessionWizardView
+from django.contrib.messages import success
 
+# from .utils import get_patch_data
 from .models import Server, ServerGroup, Upgrade, UpgradeResult
 from .forms import (
     CreateServerForm,
@@ -100,6 +102,12 @@ class UpgradeListView(ListView):
     template_name = "upgrade_list.html"
     queryset = Upgrade.objects.all()
     context_object_name = "upgrades"
+
+    def post(self, request):
+        # get_patch_data()
+        print("Refreshing...")
+        success(request, "Refreshed successfully!")
+        return redirect("upgrades")
 
 
 class UpgradeWizard(SessionWizardView):

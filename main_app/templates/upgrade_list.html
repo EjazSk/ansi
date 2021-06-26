@@ -5,6 +5,12 @@
 <h4 class="mt-4">Available packages for upgrade</h4>
 <hr>
 <a href="{% url 'upgrade' %}" class="btn btn-success">Upgrade</a>
+<form action="" method="post" class="mr-2 float-right" id="refresh-form">
+  {% csrf_token %}
+  <button title="Refresh Repository" name="refresh" type="submit" class="btn btn-info mt-2 mb-4 mr-4">
+    Refresh Repository <i aria-hidden="true" class="fa fa-refresh ml-2"></i>
+  </button>
+</form>
 <table class="table mt-4">
   <thead>
     <tr>
