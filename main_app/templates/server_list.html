@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %} Servers {% endblock title %}
+
+{% block content %}
+<h4 class="mt-4">Servers</h4>
+<hr>
+<a href="{% url 'create-server' %}" class="btn btn-success">Add Server</a>
+<table class="table mt-4">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">IP Address</th>
+      <th scope="col">View</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for server in servers %}
+    <tr>
+
+      <th scope="row">{{server.id}}</th>
+      <td>{{server.name}}</td>
+      <td>{{server.address}}</td>
+      <td><a class="btn btn-primary btn-sm" href="{% url 'server-detail' server.id %}">view</a></td>
+
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock content %}

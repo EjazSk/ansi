@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Upgrade Results {% endblock title %}
+
+{% block content %}
+
+<div class="row mt-4">
+    <div class="col-md-10 offset-md-1">
+        <h4>Upgrade Results</h4>
+        <table class="table  mt-4" id="result-table">
+            <thead class="thead-light primary">
+                <tr>
+                    <!--      <th scope="col" >ID</th>-->
+                    <th scope="col">Name</th>
+                    <th scope="col">Status</th>
+
+                    <th scope="col">Created at</th>
+                    <!--         <th scope="col">Created by</th>-->
+                    <th scope="col">Summary</th>
+                    <th scope="col">View</th>
+                </tr>
+            </thead>
+            <tbody id="tb-body">
+                {% for result in results %}
+                <tr class="tr">
+                    <!--      <th scope="row">1</th>-->
+                    <td>{{result.name}}</td>
+                    <td>
+                        {% if result.status == 'Completed' %}
+                        <i title="Completed" class="fa fa-check-circle fa-3x" aria-hidden="true"
+                            style="color:#4caf50"></i>
+                        {% elif result.status == 'In Process'%}
+                        <i title="In Process" class="fa fa-spinner fa-3x fa-pulse" aria-hidden="true"
+                            style="color:#4c7aaf"></i>
+                        {% else %}
+                        <i title="Failed" class="fa fa-times-circle fa-3x" aria-hidden="true" style="color:#ff5722"></i>
+                        {% endif %}
+                    </td>
+
+                    <!--         <td>{{result.created_by}}</td>-->
+                    <td>{{result.created_at}}</td>
+                    <td>
+                        {% if result.success_count > 0 %}
+                        <p class="alert alert-success" role="alert"><b>Success : {{result.success_count}}</b></p>
+                        {% endif %}
+                        {% if result.failure_count > 0 %}
+                        <p class="alert alert-danger" role="alert"><b>Failed : {{result.failure_count}}</b></p>
+                        {% endif %}
+                        {% if result.unreachable_count > 0 %}
+                        <p class="alert alert-warning" role="alert"><b>Unreachable : {{result.unreachable_count}}</b>
+                        </p>
+                        {% endif %}
+                    </td>
+                    <td><a href="{% url 'result-detail' result.id %}" class="btn  btn-primary">View Details</a></td>
+
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %} {{server.name}} {% endblock title %}
+{% block content %}
+<div class="container">
+    <div class="col-md-6 offset-md-2">
+        <div class="card mt-4">
+            <div class="card-body">
+                <h5 class="card-title">Name: {{server.name}}</h5>
+                <hr>
+                <h6 class="mb-4 card-subtitle mb-2 text-muted">IP Address: {{server.address}}</h6>
+
+                <a href="{% url 'server-edit' server.id %}" class="btn btn-primary btn-sm card-link">Edit</a>
+                <a href="{% url 'server-delete' server.id %}" class="btn btn-danger btn-sm card-link">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

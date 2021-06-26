@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Result Detail | {{result.name}} {% endblock title %}
+
+{% block content %}
+<div class="card col-md-10 offset-md-1 mt-4">
+    <div class="card-body">
+        <h4 class="card-title"> Name : {{result.name}}</h4>
+        <hr>
+        <h6 class="mb-2 mt-4">Result : {{result.status}}</h6>
+
+        <div class="row">
+            <div class="col-md-6">
+                <h6>Groups : {{result.groups}}</h6>
+            </div>
+            <div class="col-md-6">
+                <h6>Created at : {{result.created_at}}</h6>
+            </div>
+        </div>
+        {% if result.fail_msg %}
+        <div class="row">
+            <div class="col-md-12">
+                <h6><code>Error : {{result.fail_msg}}</code></h6>
+
+            </div>
+        </div>
+        {% endif %}
+        <!--&lt;!&ndash;      <hr>&ndash;&gt;-->
+    </div>
+
+
+</div>
+
+<div class="col-md-10 offset-md-1">
+    <h6 class="mb-2 mt-4">Result Details : </h6>
+    <table class="table  mt-4" id="nodes">
+        <thead class="thead primary">
+            <tr>
+                <th scope="col">PID</th>
+                <th scope="col">Host</th>
+                <th scope="col">Package</th>
+                <th scope="col">Result</th>
+                <th scope="col">State</th>
+                <th scope="col">Upgraded Version</th>
+                <th scope="col">Message</th>
+            </tr>
+        </thead>
+        <tbody id="tb-body">
+            {% for detail in result.get_result_detail %}
+            <tr>
+                <!--      <th scope="row">1</th>-->
+                <td>{{detail.pid}}</td>
+                <td>{{detail.host}}</td>
+                <td>{{detail.package_name}}</td>
+                <td> {% if detail.runner_result == 'SUCCESS' %}
+                    <i title="Completed" class="fa fa-check-circle fa-2x" aria-hidden="true" style="color:#4caf50"></i>
+                    {% elif detail.runner_result == 'NOT REACHABLE'%}
+                    <i title="In Process" class="fa fa-play-circle fa-2x" aria-hidden="true" style="color:#ff5722"></i>
+                    {% else %}
+                    <i title="Failed" class="fa fa-times-circle fa-2x" aria-hidden="true" style="color:#ff5722"></i>
+                    {% endif %}
+                </td>
+                <td>{{detail.state}}</td>
+                <td>{{detail.upgraded_version}}</td>
+                <td>{{detail.msg}}</td>
+
+
+
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock content %}

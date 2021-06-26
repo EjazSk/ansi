@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %} Servers {% endblock title %}
+
+{% block content %}
+<h4 class="mt-4">Available packages for upgrade</h4>
+<hr>
+<a href="{% url 'upgrade' %}" class="btn btn-success">Upgrade</a>
+<table class="table mt-4">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Fullname</th>
+      <th scope="col">Current version</th>
+      <th scope="col">New version</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for upgrade in upgrades %}
+    <tr>
+
+      <th scope="row">{{upgrade.id}}</th>
+      <td>{{upgrade.name}}</td>
+      <td>{{upgrade.full_name}}</td>
+      <td>{{upgrade.current_version}}</td>
+      <td>{{upgrade.new_version}}</td>
+
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock content %}

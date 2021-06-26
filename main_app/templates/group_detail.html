@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %} {{group.name}} {% endblock title %}
+{% block content %}
+<div class="container">
+    <div class="col-md-6 offset-md-2">
+        <div class="card mt-4">
+            <div class="card-body">
+                <h5 class="card-title">Name: {{group.name}}</h5>
+                <hr>
+                <h6 class="mb-4 card-subtitle mb-2 text-muted">
+                    Servers:
+                    {% for server in group.servers.all %}
+                    <ul class="list-group list-group-flush">
+
+                        <li class="list-group-item">Name: {{server.name}} | Server IP: {{server.address}}</li>
+
+                    </ul>
+                    {% endfor %}
+                </h6>
+                <a href="{% url 'group-edit' group.id %}" class="btn btn-primary btn-sm card-link">Edit</a>
+                <a href="{% url 'group-delete' group.id %}" class="btn btn-danger btn-sm card-link">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

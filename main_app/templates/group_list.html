@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %} Servers {% endblock title %}
+
+{% block content %}
+<h4 class="mt-4">Servers</h4>
+<hr>
+<a href="{% url 'create-group' %}" class="btn btn-success">Create Group</a>
+<table class="table mt-4">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Active</th>
+      <th scope="col">View</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for group in groups %}
+    <tr>
+
+      <th scope="row">{{group.id}}</th>
+      <td>{{group.name}}</td>
+      <td>{{group.is_active}}</td>
+      <td><a class="btn btn-primary btn-sm" href="{% url 'group-detail' group.id %}">view</a></td>
+
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock content %}

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+{% if 'create' in request.resolver_match.url_name %}
+Create Group
+{% else %}
+Edit Group
+{% endif %}
+
+{% endblock title %}
+{% block heading %}
+{% if 'create' in request.resolver_match.url_name %}
+Create Group
+{% else %}
+Edit Group
+{% endif %}{% endblock heading %}
+
+{% block content %}
+
+<div class="col-md-8 offset-md-2 mt-4">
+    <form action="" method="post">
+        {% csrf_token %}
+
+        {{form|crispy}}
+
+        <input type="submit" class="btn btn-success btn-block mt-4" value="Submit">
+    </form>
+</div>
+
+{% endblock content %}

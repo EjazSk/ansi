@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %} Delete Server {% endblock title %}
+
+{% block content %}
+
+<div class="col-md-8 offset-md-2">
+    <h4 class="mb-4">Delete groud, {{server.name}} ? </h4>
+    <form action="" method="post">
+        {% csrf_token %}
+        <input type="submit" class="btn btn-danger mr-4" value="Yes, Confirm">
+        <a href="{{server.get_absolute_url}}" class="btn btn-primary">No, Go back</a>
+    </form>
+</div>
+
+{% endblock content %}
