@@ -1,0 +1,7 @@
+[1;35m[WARNING]: Could not match supplied host pattern, ignoring: local[0m
+
+PLAY [9] ***********************************************************************
+[0;36mskipping: no hosts matched[0m
+
+PLAY RECAP *********************************************************************
+

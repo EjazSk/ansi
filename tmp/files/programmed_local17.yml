@@ -1,0 +1,12 @@
+- name: '17'
+  hosts: local
+  gather_facts: false
+  become: true
+  become_method: sudo
+  become_user: root
+  tasks:
+  - action:
+      module: package
+      args:
+        name: apt-utils
+        state: latest

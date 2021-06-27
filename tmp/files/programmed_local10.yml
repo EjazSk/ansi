@@ -1,0 +1,18 @@
+- name: '10'
+  hosts: local
+  gather_facts: false
+  become: true
+  become_method: sudo
+  become_user: root
+  tasks:
+  - action:
+      module: package
+      args:
+        name: apt
+        state: latest
+    vars:
+      become: 'yes'
+      ansible_connection: ssh
+      ansible_user: st
+      ansible_ssh_pass: '123'
+      ansible_sudo_pass: '123'

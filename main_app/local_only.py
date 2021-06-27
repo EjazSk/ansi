@@ -16,6 +16,7 @@ from .models import UpgradeResult
 @shared_task
 def py_ansible_runner_local(name, packages):
     groups = "local"
+    tasks=[]
     upgrade_result = UpgradeResult.objects.create(
         name="{}".format(str(name)), status="In Process", groups=groups
     )

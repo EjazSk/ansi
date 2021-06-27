@@ -1,0 +1,11 @@
+
+PLAY [/home/st/Desktop/ansi/config/tmp/files/programmed_update_Upgrade 2021-06-27 10:25:08.889390+00:00.yml] ***
+
+TASK [apt] *********************************************************************
+[1;31mfatal: [127.0.0.1]: UNREACHABLE! => {"changed": false, "msg": "Invalid/incorrect username/password. Skipping remaining 3 retries to prevent account lockout: Permission denied, please try again.\r\nPermission denied, please try again.\r\nssh_askpass: exec(/usr/bin/ssh-askpass): No such file or directory\r\nstackadmin@127.0.0.1: Permission denied (publickey,password).", "unreachable": true}[0m
+
+PLAY RECAP *********************************************************************
+[0;31m127.0.0.1[0m                  : ok=0    changed=0    [1;31munreachable=1   [0m failed=0    skipped=0    rescued=0    ignored=0   
+PLAY RECAP *********************************************************************
+[0;31m127.0.0.1[0m                  : ok=0    changed=0    [1;31munreachable=1   [0m failed=0    skipped=0    rescued=0    ignored=0   
+

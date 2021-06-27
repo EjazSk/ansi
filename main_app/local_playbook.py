@@ -7,10 +7,10 @@ from django.conf import settings
 import ansible_runner
 from celery import shared_task
 
-from .models import UpgradeResultDetails, UpgradedPatch
-from .models import Patch
+from .models import UpgradeResultDetails
+from .models import Upgrade
 from .utils import get_patch_data
-from .models import UpgradedPatch
+#from .models import UpgradedPatch
 
 
 @shared_task

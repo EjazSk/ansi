@@ -1,0 +1,18 @@
+- name: '2'
+  hosts: news
+  gather_facts: false
+  become: true
+  become_method: sudo
+  become_user: root
+  tasks:
+  - action:
+      module: package
+      args:
+        name: apt-utils
+        state: latest
+    vars:
+      become: 'yes'
+      ansible_connection: ssh
+      ansible_user: stackadmin
+      ansible_ssh_pass: Password1
+      ansible_sudo_pass: Password1

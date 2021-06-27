@@ -1,0 +1,1 @@
+{"event": "verbose", "uuid": "3485387c-a997-4776-996e-29203964be38", "counter": 3, "stdout": "\u001b[0;31mThe error appears to be in '/home/st/Desktop/ansi/config/tmp/files/programmed_local22.yml': line 1, column 3, but may\u001b[0m", "start_line": 2, "end_line": 3, "runner_ident": "7ab46594-cca7-4482-a208-ae4f7bee1b43"}

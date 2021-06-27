@@ -1,0 +1,9 @@
+- name: '18'
+  hosts: local
+  gather_facts: false
+  tasks:
+  - action:
+      module: package
+      args:
+        name: alsa-utils
+        state: latest

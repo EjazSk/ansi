@@ -1,0 +1,16 @@
+
+PLAY [19] **********************************************************************
+
+TASK [package] *****************************************************************
+
+TASK [package] *****************************************************************
+[0;31mAn exception occurred during task execution. To see the full traceback, use -vvv. The error was: NoneType: None[0m
+[0;31mfatal: [127.0.0.1]: FAILED! => {"changed": false, "msg": "Could not detect which package manager to use. Try gathering facts or setting the \"use\" option."}[0m
+
+PLAY RECAP *********************************************************************
+[0;31m127.0.0.1[0m                  : ok=0    changed=0    unreachable=0    [0;31mfailed=1   [0m skipped=0    rescued=0    ignored=0   
+
+
+PLAY RECAP *********************************************************************
+[0;31m127.0.0.1[0m                  : ok=0    changed=0    unreachable=0    [0;31mfailed=1   [0m skipped=0    rescued=0    ignored=0   
+
