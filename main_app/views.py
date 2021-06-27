@@ -1,3 +1,4 @@
+import time
 from django.shortcuts import render, redirect
 from django.views.generic import (
     TemplateView,
@@ -14,7 +15,7 @@ from django.contrib.messages import warning
 from formtools.wizard.views import SessionWizardView
 from django.contrib.messages import success
 
-# from .utils import get_patch_data
+from .utils import get_patch_data
 from .models import Server, ServerGroup, Upgrade, UpgradeResult
 from .forms import (
     CreateServerForm,
@@ -23,6 +24,7 @@ from .forms import (
     NodeGroupForm,
     PatchNameForm,
 )
+from .tasks import py_ansible_runner
 
 
 def home(request):
@@ -104,7 +106,7 @@ class UpgradeListView(ListView):
     context_object_name = "upgrades"
 
     def post(self, request):
-        # get_patch_data()
+        get_patch_data()
         print("Refreshing...")
         success(request, "Refreshed successfully!")
         return redirect("upgrades")
@@ -128,8 +130,8 @@ class UpgradeWizard(SessionWizardView):
         print("groups", groups)
         print("packages", packages)
         print("name", name)
-        # py_ansible_runner.delay(groups, packages, name)
-        # time.sleep(2)
+        py_ansible_runner.delay(groups, packages, name)
+        time.sleep(2)
         return redirect(reverse("upgrades"))
 
 
