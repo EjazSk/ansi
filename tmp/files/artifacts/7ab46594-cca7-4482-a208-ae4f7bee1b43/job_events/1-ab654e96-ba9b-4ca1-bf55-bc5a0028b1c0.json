@@ -1,0 +1,1 @@
+{"event": "verbose", "uuid": "ab654e96-ba9b-4ca1-bf55-bc5a0028b1c0", "counter": 1, "stdout": "\u001b[0;31mERROR! 'ansible_sudo_pass' is not a valid attribute for a Play\u001b[0m", "start_line": 0, "end_line": 1, "runner_ident": "7ab46594-cca7-4482-a208-ae4f7bee1b43"}

@@ -1,0 +1,16 @@
+- name: '21'
+  hosts: local
+  gather_facts: true
+  become: true
+  become_method: sudo
+  become_user: root
+  tasks:
+  - action:
+      module: package
+      args:
+        name: bind9-libs
+        state: latest
+    vars:
+      become: 'yes'
+      ansible_connection: local
+      ansible_sudo_pass: '123'

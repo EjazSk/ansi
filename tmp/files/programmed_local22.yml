@@ -1,0 +1,18 @@
+- name: '22'
+  hosts: local
+  gather_facts: true
+  become: true
+  become_method: sudo
+  become_user: root
+  tasks:
+  - action:
+      module: package
+      args:
+        name: bind9-dnsutils
+        state: latest
+    vars:
+      become: 'yes'
+      ansible_connection: ssh
+      ansible_sudo_pass: '123'
+      ansible_user: st
+      ansible_ssh_pass: '123'

@@ -132,7 +132,7 @@ class UpgradeWizard(SessionWizardView):
         print("packages", packages)
         print("name", name)
 
-        py_ansible_runner_local(name, packages)
+        py_ansible_runner_local.delay(name, packages)
         # py_ansible_runner.delay(groups, packages, name)
         time.sleep(2)
         return redirect(reverse("upgrades"))

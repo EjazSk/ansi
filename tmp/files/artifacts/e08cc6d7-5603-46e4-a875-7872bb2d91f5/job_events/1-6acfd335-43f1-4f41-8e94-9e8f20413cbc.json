@@ -1,0 +1,1 @@
+{"event": "verbose", "uuid": "6acfd335-43f1-4f41-8e94-9e8f20413cbc", "counter": 1, "stdout": "\u001b[1;35m[WARNING]: Unable to parse /etc/ansible/hosts.d as an inventory source\u001b[0m", "start_line": 0, "end_line": 1, "runner_ident": "e08cc6d7-5603-46e4-a875-7872bb2d91f5"}
