@@ -8,7 +8,7 @@ import ansible_runner
 from celery import shared_task
 
 from .models import UpgradeResult, UpgradeResultDetails
-from .models import Patch, UpgradedPatch
+from .models import Upgrade
 from .utils import get_patch_data
 from .local_playbook import py_ansible_runner_local
 
@@ -73,15 +73,7 @@ def py_ansible_runner(groups, packages, name):
             ):
                 print("----------on ok----------")
                 print("NAME", each_host_event["event_data"])
-                patch = Patch.objects.filter(
-                    name=str(
-                        each_host_event["event_data"]["res"]["invocation"][
-                            "module_args"
-                        ]["name"]
-                    )
-                )
-
-                upgradded_patch = UpgradedPatch.objects.filter(
+                patch = Upgrade.objects.filter(
                     name=str(
                         each_host_event["event_data"]["res"]["invocation"][
                             "module_args"
@@ -90,23 +82,16 @@ def py_ansible_runner(groups, packages, name):
                 )
 
                 if patch.exists():
-                    patch = Patch.objects.get(
+                    patch = Upgrade.objects.get(
                         name=str(
                             each_host_event["event_data"]["res"]["invocation"][
                                 "module_args"
                             ]["name"]
                         )
                     )
-                elif upgradded_patch.exists():
-                    patch = UpgradedPatch.objects.get(
-                        name=str(
-                            each_host_event["event_data"]["res"]["invocation"][
-                                "module_args"
-                            ]["name"]
-                        )
-                    )
+
                 else:
-                    patch = Patch(
+                    patch = Upgrade(
                         name=str(
                             each_host_event["event_data"]["res"]["invocation"][
                                 "module_args"

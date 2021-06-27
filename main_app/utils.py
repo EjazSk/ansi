@@ -10,14 +10,12 @@ from django.utils import timezone
 import ansible_runner
 from celery import shared_task
 
-from .models import Patch, UpgradeResult
-from .pyansiblerunner import py_ansible_runner
-from .models import UpgradeResult, UpgradeResultDetails, MirrorRespository
+from .models import Upgrade, UpgradeResult
 
 
 def get_patch_data():
     # print('CALLED')
-    Patch.objects.all().delete()
+    Upgrade.objects.all().delete()
     filename = "/tmp/" + str(datetime.now()).replace(" ", "")
     # print filename
     patchlist = []
@@ -27,7 +25,7 @@ def get_patch_data():
         for i in listing.readlines()[1:]:
             package = i.split()[0]
             # print('FULL', package.split(' '))
-            Patch.objects.create(
+            Upgrade.objects.create(
                 name=package.split("/")[0],
                 full_name=str(package.split(" ")[0]),
                 current_version=i.split()[3:][2][:-1],

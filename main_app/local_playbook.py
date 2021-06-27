@@ -7,10 +7,8 @@ from django.conf import settings
 import ansible_runner
 from celery import shared_task
 
-from .models import UpgradeResultDetails, UpgradedPatch
-from .models import Patch
+from .models import UpgradeResultDetails, Upgrade
 from .utils import get_patch_data
-from .models import UpgradedPatch
 
 
 @shared_task
@@ -56,16 +54,9 @@ def py_ansible_runner_local(upgrade_result, tasks, name):
             ):
                 # print('on ok')
                 # creating entry for Upgraded Patch
-                upgradded_patch = UpgradedPatch.objects.filter(
-                    name=str(
-                        each_host_event["event_data"]["res"]["invocation"][
-                            "module_args"
-                        ]["name"]
-                    )
-                )
 
                 # Patch process
-                patch = Patch.objects.filter(
+                patch = Upgrade.objects.filter(
                     name=str(
                         each_host_event["event_data"]["res"]["invocation"][
                             "module_args"
@@ -74,7 +65,7 @@ def py_ansible_runner_local(upgrade_result, tasks, name):
                 )
 
                 if patch.exists():
-                    patch = Patch.objects.get(
+                    patch = Upgrade.objects.get(
                         name=str(
                             each_host_event["event_data"]["res"]["invocation"][
                                 "module_args"
@@ -83,23 +74,9 @@ def py_ansible_runner_local(upgrade_result, tasks, name):
                     )
 
                     # Create Upgraded patch object
-                    if not upgradded_patch.exists():
-                        UpgradedPatch.objects.create(
-                            name=patch.name,
-                            full_name=patch.full_name,
-                            current_version=patch.current_version,
-                            new_version=patch.new_version,
-                        )
-                elif upgradded_patch.exists():
-                    patch = UpgradedPatch.objects.get(
-                        name=str(
-                            each_host_event["event_data"]["res"]["invocation"][
-                                "module_args"
-                            ]["name"]
-                        )
-                    )
+
                 else:
-                    patch = Patch(
+                    patch = Upgrade(
                         name=str(
                             each_host_event["event_data"]["res"]["invocation"][
                                 "module_args"
