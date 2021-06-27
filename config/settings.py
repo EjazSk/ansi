@@ -134,6 +134,6 @@ USE_X_FORWARDED_HOST = True
 
 
 # Constants for Ansible playbook
-ANSIBLE_USER = "stackadmin"
-ANSIBLE_PASSWORD = "Password1"
+ANSIBLE_USER = "st"
+ANSIBLE_PASSWORD = "123"
 ANSIBLE_CONF_PATH = "/etc/ansible/hosts.d/"

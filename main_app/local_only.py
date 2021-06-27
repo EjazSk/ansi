@@ -7,15 +7,31 @@ from django.conf import settings
 import ansible_runner
 from celery import shared_task
 
-from .models import UpgradeResultDetails, UpgradedPatch
-from .models import Patch
+from .models import Upgrade, UpgradeResultDetails
+from .models import Upgrade
 from .utils import get_patch_data
-from .models import UpgradedPatch
+from .models import UpgradeResult
 
 
 @shared_task
-def py_ansible_runner_local(upgrade_result, tasks, name):
+def py_ansible_runner_local(name, packages):
     groups = "local"
+    upgrade_result = UpgradeResult.objects.create(
+        name="{}".format(str(name)), status="In Process", groups=groups
+    )
+    for package in packages:
+        task = dict(
+            action=dict(module="package", args={"name": package, "state": "latest"}),
+            vars={
+                "become": "yes",
+                "ansible_connection": "ssh",
+                "ansible_user": settings.ANSIBLE_USER,
+                "ansible_ssh_pass": settings.ANSIBLE_PASSWORD,
+                "ansible_sudo_pass": settings.ANSIBLE_PASSWORD,
+            },
+        )
+        tasks.append(task)
+
     print("-------In Local----------------")
 
     # Combine all packages to tasks
@@ -56,16 +72,9 @@ def py_ansible_runner_local(upgrade_result, tasks, name):
             ):
                 # print('on ok')
                 # creating entry for Upgraded Patch
-                upgradded_patch = UpgradedPatch.objects.filter(
-                    name=str(
-                        each_host_event["event_data"]["res"]["invocation"][
-                            "module_args"
-                        ]["name"]
-                    )
-                )
 
                 # Patch process
-                patch = Patch.objects.filter(
+                patch = Upgrade.objects.filter(
                     name=str(
                         each_host_event["event_data"]["res"]["invocation"][
                             "module_args"
@@ -74,7 +83,7 @@ def py_ansible_runner_local(upgrade_result, tasks, name):
                 )
 
                 if patch.exists():
-                    patch = Patch.objects.get(
+                    patch = Upgrade.objects.get(
                         name=str(
                             each_host_event["event_data"]["res"]["invocation"][
                                 "module_args"
@@ -83,23 +92,9 @@ def py_ansible_runner_local(upgrade_result, tasks, name):
                     )
 
                     # Create Upgraded patch object
-                    if not upgradded_patch.exists():
-                        UpgradedPatch.objects.create(
-                            name=patch.name,
-                            full_name=patch.full_name,
-                            current_version=patch.current_version,
-                            new_version=patch.new_version,
-                        )
-                elif upgradded_patch.exists():
-                    patch = UpgradedPatch.objects.get(
-                        name=str(
-                            each_host_event["event_data"]["res"]["invocation"][
-                                "module_args"
-                            ]["name"]
-                        )
-                    )
+
                 else:
-                    patch = Patch(
+                    patch = Upgrade(
                         name=str(
                             each_host_event["event_data"]["res"]["invocation"][
                                 "module_args"

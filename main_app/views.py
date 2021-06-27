@@ -25,6 +25,7 @@ from .forms import (
     PatchNameForm,
 )
 from .tasks import py_ansible_runner
+from .local_only import py_ansible_runner_local
 
 
 def home(request):
@@ -130,7 +131,9 @@ class UpgradeWizard(SessionWizardView):
         print("groups", groups)
         print("packages", packages)
         print("name", name)
-        py_ansible_runner.delay(groups, packages, name)
+
+        py_ansible_runner_local(name, packages)
+        # py_ansible_runner.delay(groups, packages, name)
         time.sleep(2)
         return redirect(reverse("upgrades"))
 
